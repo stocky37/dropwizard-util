@@ -10,18 +10,16 @@ import javax.ws.rs.core.FeatureContext;
 public class CreatedDynamicFeature implements DynamicFeature {
 
 	private final ObjectMapper mapper;
-	private final boolean absolute;
 
-	public CreatedDynamicFeature(ObjectMapper mapper, boolean absolute) {
+	public CreatedDynamicFeature(ObjectMapper mapper) {
 		this.mapper = mapper;
-		this.absolute = absolute;
 	}
 
 	@Override
 	public void configure(ResourceInfo resourceInfo, FeatureContext context) {
 		CREATED annotation = resourceInfo.getResourceMethod().getAnnotation(CREATED.class);
 		if(annotation != null){
-			context.register(new JsonCreatedFilter(mapper, annotation.value(), absolute));
+			context.register(new JsonFieldCreatedFilter(annotation.value(), mapper));
 		}
 	}
 }

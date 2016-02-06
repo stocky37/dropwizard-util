@@ -43,7 +43,7 @@ public class ExampleApplication extends Application<Configuration> {
 			Duration.ofMinutes(5)
 		);
 
-		environment.jersey().register(new CreatedDynamicFeature(environment.getObjectMapper(), true));
+		environment.jersey().register(new CreatedDynamicFeature(environment.getObjectMapper()));
 		environment.jersey().register(new CreatedResource());
 		environment.jersey().register(new CachedResource(cache));
 		environment.admin().addTask(new InvalidateCacheTask<>(cache));

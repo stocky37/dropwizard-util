@@ -30,6 +30,15 @@ public class CreatedResource {
 		return repr;
 	}
 
+	@POST
+	@Path("wrong")
+	@CREATED("wrongkey")
+	public TestJsonRepr wrongcreated() {
+		TestJsonRepr repr = new TestJsonRepr();
+		repr.setKey("testing");
+		return repr;
+	}
+
 	@Path("not")
 	@POST
 	public TestJsonRepr notCreated() {
