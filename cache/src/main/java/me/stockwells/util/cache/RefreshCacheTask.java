@@ -18,12 +18,12 @@ public class RefreshCacheTask<V> extends CacheTask<String,V, LoadingCache<String
 	}
 
 	@Override
-	protected void actOnAll(LoadingCache<String, V> cache) throws Exception {
+	protected void execute(LoadingCache<String, V> cache) throws Exception {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	protected void act(LoadingCache<String, V> cache, String key) throws Exception {
-		cache.refresh(key);
+	protected void execute(LoadingCache<String, V> cache, Iterable<String> keys) throws Exception {
+		keys.forEach(cache::refresh);
 	}
 }

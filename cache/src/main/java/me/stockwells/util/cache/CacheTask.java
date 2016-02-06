@@ -21,12 +21,12 @@ public abstract class CacheTask<K, V, C extends Cache<K,V>> extends Task {
 	@Override
 	public void execute(ImmutableMultimap<String, String> parameters, PrintWriter output) throws Exception {
 		if(parameters.containsKey(KEY_PROPERTY)) {
-			act(cache, parameters.get(KEY_PROPERTY).asList().get(0));
+			execute(cache, parameters.get(KEY_PROPERTY));
 		} else {
-			actOnAll(cache);
+			execute(cache);
 		}
 	}
 
-	protected abstract void actOnAll(C cache) throws Exception;
-	protected abstract void act(C cache, String key) throws Exception;
+	protected abstract void execute(C cache) throws Exception;
+	protected abstract void execute(C cache, Iterable<String> keys) throws Exception;
 }

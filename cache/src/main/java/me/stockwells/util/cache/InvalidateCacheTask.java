@@ -18,12 +18,12 @@ public class InvalidateCacheTask<K, V> extends CacheTask<K,V, Cache<K,V>> {
 	}
 
 	@Override
-	protected void actOnAll(Cache<K, V> cache) throws Exception {
+	protected void execute(Cache<K, V> cache) throws Exception {
 		cache.invalidateAll();
 	}
 
 	@Override
-	protected void act(Cache<K, V> cache, String key) throws Exception {
-		cache.invalidate(key);
+	protected void execute(Cache<K, V> cache, Iterable<String> keys) throws Exception {
+		cache.invalidate(keys);
 	}
 }
