@@ -1,6 +1,7 @@
 package me.stockwells.util.jersey;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.annotation.AnnotationUtils;
 
 import javax.ws.rs.container.DynamicFeature;
 import javax.ws.rs.container.ResourceInfo;
@@ -17,7 +18,7 @@ public class CreatedDynamicFeature implements DynamicFeature {
 
 	@Override
 	public void configure(ResourceInfo resourceInfo, FeatureContext context) {
-		CREATED annotation = resourceInfo.getResourceMethod().getAnnotation(CREATED.class);
+		Created annotation = AnnotationUtils.findAnnotation(resourceInfo.getResourceMethod(), Created.class);
 		if(annotation != null){
 			context.register(new JsonFieldCreatedFilter(annotation.value(), mapper));
 		}
