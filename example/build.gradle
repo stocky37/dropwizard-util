@@ -1,5 +1,6 @@
 dependencies {
     compile project(':core')
     compile project(':caching')
+    compile project(':jersey')
     compile 'io.dropwizard:dropwizard-core'
 }

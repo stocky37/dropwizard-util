@@ -4,6 +4,7 @@ import me.stockwells.util.caching.InvalidateCacheTask;
 import me.stockwells.util.caching.RedisCache;
 import me.stockwells.util.caching.RefreshCacheTask;
 import me.stockwells.util.caching.ser.SimpleSerializer;
+import me.stockwells.util.jersey.CreatedDynamicFeature;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import io.dropwizard.Application;
@@ -42,6 +43,8 @@ public class ExampleApplication extends Application<Configuration> {
 			Duration.ofMinutes(5)
 		);
 
+		environment.jersey().register(new CreatedDynamicFeature(environment.getObjectMapper(), true));
+		environment.jersey().register(new CreatedResource());
 		environment.jersey().register(new CachedResource(cache));
 		environment.admin().addTask(new InvalidateCacheTask<>(cache));
 		environment.admin().addTask(new RefreshCacheTask<>(cache));
