@@ -1,4 +1,4 @@
-package me.stockwells.util.caching.ser;
+package me.stockwells.util.cache.ser;
 
 import org.apache.commons.lang3.SerializationUtils;
 

@@ -1,9 +1,9 @@
 package me.stockwells.util.example;
 
-import me.stockwells.util.caching.InvalidateCacheTask;
-import me.stockwells.util.caching.RedisCache;
-import me.stockwells.util.caching.RefreshCacheTask;
-import me.stockwells.util.caching.ser.SimpleSerializer;
+import me.stockwells.util.cache.InvalidateCacheTask;
+import me.stockwells.util.cache.RedisCache;
+import me.stockwells.util.cache.RefreshCacheTask;
+import me.stockwells.util.cache.ser.SimpleSerializer;
 import me.stockwells.util.jersey.CreatedDynamicFeature;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;

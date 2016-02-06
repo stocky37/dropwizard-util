@@ -1,6 +1,6 @@
-package me.stockwells.util.caching;
+package me.stockwells.util.cache;
 
-import me.stockwells.util.caching.ser.Serializer;
+import me.stockwells.util.cache.ser.Serializer;
 import com.google.common.cache.AbstractLoadingCache;
 import com.google.common.cache.CacheLoader;
 import com.google.common.collect.Iterables;

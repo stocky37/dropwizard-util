@@ -1,4 +1,4 @@
-package me.stockwells.util.caching.ser;
+package me.stockwells.util.cache.ser;
 
 import javax.annotation.ParametersAreNullableByDefault;
 

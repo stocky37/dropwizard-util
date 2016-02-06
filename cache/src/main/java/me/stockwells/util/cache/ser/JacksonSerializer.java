@@ -1,4 +1,4 @@
-package me.stockwells.util.caching.ser;
+package me.stockwells.util.cache.ser;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

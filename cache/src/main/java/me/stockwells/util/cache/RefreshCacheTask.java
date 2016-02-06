@@ -1,4 +1,4 @@
-package me.stockwells.util.caching;
+package me.stockwells.util.cache;
 
 import com.google.common.cache.LoadingCache;
 
