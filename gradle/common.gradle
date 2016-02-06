@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencyManagement {
+	imports {
+		mavenBom 'io.dropwizard:dropwizard-bom:0.9.1'
+	}
+
+	dependencies {
+		dependency 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.6.3'
+		dependency 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.6.3'
+	}
+}
+
+dependencies {
+	testCompile 'junit:junit:4.12'
+	testCompile 'nl.jqno.equalsverifier:equalsverifier:1.+'
+}
+
+compileJava {
+	options.compilerArgs << '-parameters'
+}

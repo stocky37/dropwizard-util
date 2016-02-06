@@ -1,0 +1,9 @@
+rootProject.name = 'util'
+include 'api'
+include 'core'
+include 'testing'
+include 'caching'
+include 'db'
+include 'jersey'
+include 'example'
+
