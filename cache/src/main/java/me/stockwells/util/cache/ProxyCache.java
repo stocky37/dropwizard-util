@@ -56,7 +56,7 @@ public class ProxyCache<K, V> extends ForwardingLoadingCache<K, V> {
 
 	@Override
 	public void refresh(K key) {
-		secondaryCache.refresh(key);
+		secondaryCache.invalidate(key);
 		super.refresh(key);
 	}
 }

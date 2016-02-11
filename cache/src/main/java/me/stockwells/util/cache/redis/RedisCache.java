@@ -1,8 +1,8 @@
 package me.stockwells.util.cache.redis;
 
+import me.stockwells.util.cache.StandardLoadingCache;
 import com.google.common.cache.CacheLoader;
 import com.google.common.collect.Iterables;
-import org.apache.commons.lang3.SerializationUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
@@ -30,9 +30,7 @@ public class RedisCache extends StandardLoadingCache<String, String> implements 
 	@Override
 	public String getIfPresent(@Nonnull Object key) {
 		try(Jedis jedis = pool.getResource()) {
-			return SerializationUtils.deserialize(
-				jedis.get(SerializationUtils.serialize((Serializable)key))
-			);
+			return jedis.get(Objects.toString(key));
 		}
 	}
 

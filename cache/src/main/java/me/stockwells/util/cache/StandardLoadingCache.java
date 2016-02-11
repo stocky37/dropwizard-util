@@ -1,4 +1,4 @@
-package me.stockwells.util.cache.redis;
+package me.stockwells.util.cache;
 
 import com.google.common.cache.AbstractLoadingCache;
 import com.google.common.cache.CacheLoader;

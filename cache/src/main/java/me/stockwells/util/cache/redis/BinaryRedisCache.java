@@ -1,5 +1,6 @@
 package me.stockwells.util.cache.redis;
 
+import me.stockwells.util.cache.StandardLoadingCache;
 import com.google.common.cache.CacheLoader;
 import com.google.common.collect.Iterables;
 import org.apache.commons.lang3.SerializationUtils;
