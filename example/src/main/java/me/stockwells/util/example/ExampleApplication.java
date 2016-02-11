@@ -2,9 +2,8 @@ package me.stockwells.util.example;
 
 import me.stockwells.util.cache.InvalidateCacheTask;
 import me.stockwells.util.cache.LoadingCacheCacheLoader;
-import me.stockwells.util.cache.RedisCache;
 import me.stockwells.util.cache.RefreshCacheTask;
-import me.stockwells.util.cache.ser.SimpleSerializer;
+import me.stockwells.util.cache.redis.RedisCache;
 import me.stockwells.util.jersey.CreatedDynamicFeature;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -38,12 +37,10 @@ public class ExampleApplication extends Application<Configuration> {
 
 	@Override
 	public void run(Configuration configuration, Environment environment) throws Exception {
-		LoadingCache<String, String> cache = new RedisCache<>(
-			new JedisPool("192.168.1.37"),
+		LoadingCache<String, String> cache = new RedisCache(
 			new Loader(),
-			new SimpleSerializer<>(),
-			new SimpleSerializer<>(),
-			Duration.ofMinutes(5)
+			new JedisPool("192.168.1.37"),
+			Duration.ofMinutes(1)
 		);
 
 		LoadingCache<String, String> primaryCache = CacheBuilder.newBuilder()
