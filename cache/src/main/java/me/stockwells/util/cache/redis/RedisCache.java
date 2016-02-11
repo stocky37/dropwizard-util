@@ -8,19 +8,19 @@ import redis.clients.jedis.JedisPool;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.Serializable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-
-public class RedisCache extends StandardLoadingCache<String, String> implements Serializable {
+@ParametersAreNonnullByDefault
+public class RedisCache extends StandardLoadingCache<String, String> {
 
 	private final JedisPool pool;
-	private final Duration expiry;
+	@Nullable private final Duration expiry;
 
-	public RedisCache(CacheLoader<String, String> loader, JedisPool pool, Duration expiry) {
+	public RedisCache(CacheLoader<String, String> loader, JedisPool pool, @Nullable Duration expiry) {
 		super(loader);
 		this.pool = pool;
 		this.expiry = expiry;
@@ -37,7 +37,11 @@ public class RedisCache extends StandardLoadingCache<String, String> implements 
 	@Override
 	public void put(String key, String value) {
 		try(Jedis jedis = pool.getResource()) {
-			jedis.setex(key, (int)expiry.getSeconds(),value);
+			if(expiry == null) {
+				jedis.set(key, value);
+			} else {
+				jedis.setex(key, (int)expiry.getSeconds(), value);
+			}
 		}
 	}
 

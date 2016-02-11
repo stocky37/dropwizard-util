@@ -7,20 +7,21 @@ import org.apache.commons.lang3.SerializationUtils;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.Serializable;
 import java.time.Duration;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 
-public class BinaryRedisCache<K extends Serializable, V extends Serializable> extends StandardLoadingCache<K, V> implements Serializable {
+@ParametersAreNonnullByDefault
+public class BinaryRedisCache<K extends Serializable, V extends Serializable> extends StandardLoadingCache<K, V> {
 
 	private final JedisPool pool;
-	private final Duration expiry;
+	@Nullable private final Duration expiry;
 
-	public BinaryRedisCache(CacheLoader<K, V> loader, JedisPool pool, Duration expiry) {
+	public BinaryRedisCache(CacheLoader<K, V> loader, JedisPool pool, @Nullable Duration expiry) {
 		super(loader);
 		this.pool = pool;
 		this.expiry = expiry;
@@ -28,7 +29,7 @@ public class BinaryRedisCache<K extends Serializable, V extends Serializable> ex
 
 	@Nullable
 	@Override
-	public V getIfPresent(@Nonnull Object key) {
+	public V getIfPresent(Object key) {
 		try(Jedis jedis = pool.getResource()) {
 			return SerializationUtils.deserialize(
 				jedis.get(SerializationUtils.serialize((Serializable)key))
@@ -39,11 +40,13 @@ public class BinaryRedisCache<K extends Serializable, V extends Serializable> ex
 	@Override
 	public void put(K key, V value) {
 		try(Jedis jedis = pool.getResource()) {
-			jedis.setex(
-				SerializationUtils.serialize(key),
-				(int)expiry.getSeconds(),
-				SerializationUtils.serialize(value)
-			);
+			final byte[] keyBytes = SerializationUtils.serialize(key);
+			final byte[] valueBytes = SerializationUtils.serialize(value);
+			if(expiry == null) {
+				jedis.set(keyBytes, valueBytes);
+			} else {
+				jedis.setex(keyBytes, (int)expiry.getSeconds(), valueBytes);
+			}
 		}
 	}
 
