@@ -6,6 +6,9 @@ import me.stockwells.util.example.api.ExampleResource;
 import me.stockwells.util.example.representations.Example;
 import com.google.common.cache.LoadingCache;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 
 public class ExampleResourceImpl implements ExampleResource {
 
@@ -23,5 +26,10 @@ public class ExampleResourceImpl implements ExampleResource {
 	@Override
 	public CreatedResource created(String value) {
 		return new CreatedResourceImpl(new Example(value));
+	}
+
+	@Override
+	public String test() {
+		return "test";
 	}
 }
