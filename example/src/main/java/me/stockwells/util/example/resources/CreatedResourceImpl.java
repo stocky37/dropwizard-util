@@ -1,4 +1,4 @@
-package me.stockwells.util.example;
+package me.stockwells.util.example.resources;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

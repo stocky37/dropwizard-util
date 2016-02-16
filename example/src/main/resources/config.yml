@@ -1,2 +1,6 @@
 server:
   type: simple
+
+swagger:
+  version: 1.0.0
+  resourcePackage: 'me.stockwells.util.example.resources.swagger'

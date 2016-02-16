@@ -1,4 +1,4 @@
-package me.stockwells.util.example;
+package me.stockwells.util.example.resources;
 
 import com.google.common.base.Throwables;
 import com.google.common.cache.LoadingCache;

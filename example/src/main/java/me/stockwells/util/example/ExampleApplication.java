@@ -6,14 +6,19 @@ import me.stockwells.util.cache.ProxyCache;
 import me.stockwells.util.cache.RefreshCacheTask;
 import me.stockwells.util.cache.loaders.AsyncCacheLoader;
 import me.stockwells.util.cache.redis.RedisCache;
+import me.stockwells.util.example.resources.CachedResource;
+import me.stockwells.util.example.resources.CreatedResourceImpl;
+import me.stockwells.util.example.resources.swagger.TestResource;
 import me.stockwells.util.jersey.CreatedDynamicFeature;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import io.dropwizard.Application;
-import io.dropwizard.Configuration;
+import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.federecio.dropwizard.swagger.SwaggerBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import redis.clients.jedis.JedisPool;
 
 import javax.annotation.Nonnull;
@@ -23,10 +28,20 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 
-public class ExampleApplication extends Application<Configuration> {
+public class ExampleApplication extends Application<ExampleConfiguration> {
 
 	public static void main(String[] args) throws Exception {
 		new ExampleApplication().run(args);
+	}
+
+	@Override
+	public void initialize(Bootstrap<ExampleConfiguration> bootstrap) {
+		bootstrap.addBundle(new SwaggerBundle<ExampleConfiguration>() {
+			@Override
+			protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(ExampleConfiguration configuration) {
+				return configuration.getSwaggerBundleConfiguration();
+			}
+		});
 	}
 
 	@ParametersAreNonnullByDefault
@@ -49,7 +64,7 @@ public class ExampleApplication extends Application<Configuration> {
 
 
 	@Override
-	public void run(Configuration configuration, Environment environment) throws Exception {
+	public void run(ExampleConfiguration configuration, Environment environment) throws Exception {
 		ListeningExecutorService primaryService = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10));
 		ListeningExecutorService secondaryService = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10));
 
@@ -64,6 +79,7 @@ public class ExampleApplication extends Application<Configuration> {
 			.build(new LoadingCacheCacheLoader<>(primaryService, secondaryCache));
 
 
+		environment.jersey().register(TestResource.class);
 		environment.jersey().register(new CreatedDynamicFeature(environment.getObjectMapper()));
 		environment.jersey().register(new CreatedResourceImpl());
 		environment.jersey().register(new CachedResource(new ProxyCache<>(primaryCache, secondaryCache)));

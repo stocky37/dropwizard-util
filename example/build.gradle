@@ -1,6 +1,7 @@
 dependencies {
-    compile project(':core')
-    compile project(':cache')
-    compile project(':jersey')
-    compile 'io.dropwizard:dropwizard-core'
+	compile project(':core')
+	compile project(':cache')
+	compile project(':jersey')
+	compile 'io.dropwizard:dropwizard-core'
+	compile 'com.smoketurner:dropwizard-swagger'
 }

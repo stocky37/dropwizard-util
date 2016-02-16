@@ -1,4 +1,4 @@
-package me.stockwells.util.example;
+package me.stockwells.util.example.resources;
 
 import me.stockwells.util.jersey.Created;
 
