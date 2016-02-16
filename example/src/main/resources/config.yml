@@ -1,6 +1,8 @@
 server:
   type: simple
+  applicationContextPath: /
 
 swagger:
+  title: Test Application
   version: 1.0.0
-  resourcePackage: 'me.stockwells.util.example.resources.swagger'
+  resourcePackage: 'me.stockwells.util.example.api'

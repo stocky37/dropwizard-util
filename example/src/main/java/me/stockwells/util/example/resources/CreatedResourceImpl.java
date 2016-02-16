@@ -1,40 +1,23 @@
 package me.stockwells.util.example.resources;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import me.stockwells.util.example.representations.Example;
+import me.stockwells.util.example.api.CreatedResource;
 
 
 public class CreatedResourceImpl implements CreatedResource {
-	public static final class TestJsonRepr {
-		@JsonProperty private String key;
+	private final Example example;
 
-		public String getKey() {
-			return key;
-		}
-
-		public void setKey(String key) {
-			this.key = key;
-		}
-	}
-
-
-	@Override
-	public TestJsonRepr created() {
-		TestJsonRepr repr = new TestJsonRepr();
-		repr.setKey("testing");
-		return repr;
+	public CreatedResourceImpl(Example example) {
+		this.example = example;
 	}
 
 	@Override
-	public TestJsonRepr wrongcreated() {
-		TestJsonRepr repr = new TestJsonRepr();
-		repr.setKey("testing");
-		return repr;
+	public Example created() {
+		return example;
 	}
 
 	@Override
-	public TestJsonRepr notCreated() {
-		TestJsonRepr repr = new TestJsonRepr();
-		repr.setKey("testing");
-		return repr;
+	public Example invalid() {
+		return example;
 	}
 }

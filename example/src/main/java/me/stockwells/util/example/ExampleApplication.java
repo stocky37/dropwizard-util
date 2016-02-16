@@ -6,9 +6,7 @@ import me.stockwells.util.cache.ProxyCache;
 import me.stockwells.util.cache.RefreshCacheTask;
 import me.stockwells.util.cache.loaders.AsyncCacheLoader;
 import me.stockwells.util.cache.redis.RedisCache;
-import me.stockwells.util.example.resources.CachedResource;
-import me.stockwells.util.example.resources.CreatedResourceImpl;
-import me.stockwells.util.example.resources.swagger.TestResource;
+import me.stockwells.util.example.resources.ExampleResourceImpl;
 import me.stockwells.util.jersey.CreatedDynamicFeature;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.LoadingCache;
@@ -79,10 +77,8 @@ public class ExampleApplication extends Application<ExampleConfiguration> {
 			.build(new LoadingCacheCacheLoader<>(primaryService, secondaryCache));
 
 
-		environment.jersey().register(TestResource.class);
+		environment.jersey().register(new ExampleResourceImpl(new ProxyCache<>(primaryCache, secondaryCache)));
 		environment.jersey().register(new CreatedDynamicFeature(environment.getObjectMapper()));
-		environment.jersey().register(new CreatedResourceImpl());
-		environment.jersey().register(new CachedResource(new ProxyCache<>(primaryCache, secondaryCache)));
 
 		environment.admin().addTask(new InvalidateCacheTask<String, String>(primaryCache) {
 			@Override
