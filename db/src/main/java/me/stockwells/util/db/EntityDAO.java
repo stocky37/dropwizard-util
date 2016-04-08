@@ -13,7 +13,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 // Note: Entity MUST be the first generic type of any super classes, since AbstractDAO
 // calls getGenericType(), which will always retrieve the first generic type attached
-public abstract class EntityDAO<E, I extends Serializable> extends AbstractDAO<E> implements GenericDAO<E, I> {
+public abstract class EntityDAO<E, I extends Serializable> extends AbstractDAO<E> implements DAO<E, I> {
 
 	public EntityDAO(SessionFactory sessionFactory) {
 		super(sessionFactory);

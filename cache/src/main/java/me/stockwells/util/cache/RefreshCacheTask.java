@@ -26,8 +26,8 @@ public abstract class RefreshCacheTask<K, V> extends Task {
 
 	@Override
 	public void execute(ImmutableMultimap<String, String> parameters, PrintWriter output) throws Exception {
-		parameters.get(KEY_PARAM).forEach(p -> cache.refresh(key(p)));
+		parameters.get(KEY_PARAM).forEach(p -> cache.refresh(parseKey(p)));
 	}
 
-	protected abstract K key(String param);
+	protected abstract K parseKey(String param);
 }

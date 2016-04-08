@@ -8,13 +8,13 @@ import java.util.Map;
 
 
 @ParametersAreNonnullByDefault
-public class ProxyCache<K, V> extends ForwardingLoadingCache<K, V> {
+public class ProxyLoadingCache<K, V> extends ForwardingLoadingCache<K, V> {
 
 	private final LoadingCache<K,V> primaryCache;
 	private final LoadingCache<K,V> secondaryCache;
 
 
-	public ProxyCache(LoadingCache<K, V> primaryCache, LoadingCache<K, V> secondaryCache) {
+	public ProxyLoadingCache(LoadingCache<K, V> primaryCache, LoadingCache<K, V> secondaryCache) {
 		this.primaryCache = primaryCache;
 		this.secondaryCache = secondaryCache;
 	}

@@ -26,6 +26,5 @@ public abstract class CreatedFilter implements ContainerResponseFilter {
 		}
 	}
 
-	protected abstract Optional<URI> location(UriInfo info, ContainerResponseContext response)
-		throws IOException;
+	protected abstract Optional<URI> location(UriInfo info, ContainerResponseContext response);
 }

@@ -1,5 +1,5 @@
 dependencies {
 	compile 'io.dropwizard:dropwizard-jersey'
 	compile 'io.dropwizard:dropwizard-core'
-	compile 'redis.clients:jedis:2.8.0'
+	compile 'redis.clients:jedis'
 }

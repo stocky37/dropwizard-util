@@ -12,19 +12,24 @@ repositories {
 
 dependencyManagement {
 	imports {
-		mavenBom 'io.dropwizard:dropwizard-bom:0.9.2'
+		mavenBom 'io.dropwizard:dropwizard-bom:0.9.+'
 	}
 
 	dependencies {
 		dependency 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.6.3'
 		dependency 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.6.3'
-		dependency 'com.smoketurner:dropwizard-swagger:0.9.2-1'
+		dependency 'com.smoketurner:dropwizard-swagger:0.9.+'
+		dependency 'org.springframework:spring-core:4.2.4.RELEASE'
+		dependency 'redis.clients:jedis:2.8.0'
+		dependency 'nl.jqno.equalsverifier:equalsverifier:2.+'
+		dependency 'junit:junit:4.12'
+		dependency 'uk.co.datumedge:hamcrest-json:0.2'
 	}
 }
 
 dependencies {
-	testCompile 'junit:junit:4.12'
-	testCompile 'nl.jqno.equalsverifier:equalsverifier:1.+'
+	testCompile 'junit:junit'
+	testCompile 'nl.jqno.equalsverifier:equalsverifier'
 }
 
 compileJava {

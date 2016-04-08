@@ -28,11 +28,11 @@ public abstract class InvalidateCacheTask<K, V> extends Task {
 	@Override
 	public void execute(ImmutableMultimap<String, String> parameters, PrintWriter output) throws Exception {
 		if(parameters.containsKey(KEY_PARAM)) {
-			cache.invalidateAll(Collections2.transform(parameters.get(KEY_PARAM), this::key));
+			cache.invalidateAll(Collections2.transform(parameters.get(KEY_PARAM), this::parseKey));
 		} else {
 			cache.invalidateAll();
 		}
 	}
 
-	protected abstract K key(String param);
+	protected abstract K parseKey(String param);
 }

@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 
-public interface GenericDAO<E, I extends Serializable> {
+public interface DAO<E, I extends Serializable> {
 	E create(E entity);
 	Optional<E> findById(I id);
 	E update(E entity);

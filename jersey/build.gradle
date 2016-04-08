@@ -1,5 +1,5 @@
 dependencies {
+	compile project(':api')
 	compile 'io.dropwizard:dropwizard-jersey'
-	compile 'org.springframework:spring-core:4.2.4.RELEASE'
-
+	compile 'org.springframework:spring-core'
 }

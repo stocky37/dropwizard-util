@@ -1,6 +1,6 @@
 dependencies {
-    compile 'io.dropwizard:dropwizard-testing'
-    compile 'nl.jqno.equalsverifier:equalsverifier:1.+'
-    compile 'uk.co.datumedge:hamcrest-json:0.2'
-    compile 'junit:junit:4.12'
+	compile 'io.dropwizard:dropwizard-testing'
+	compile 'nl.jqno.equalsverifier:equalsverifier'
+	compile 'uk.co.datumedge:hamcrest-json'
+	compile 'junit:junit'
 }
