@@ -1,6 +1,8 @@
 dependencies {
+	compile 'commons-io:commons-io'
 	compile 'io.dropwizard:dropwizard-testing'
 	compile 'nl.jqno.equalsverifier:equalsverifier'
 	compile 'uk.co.datumedge:hamcrest-json'
+	compile 'org.hamcrest:hamcrest-all'
 	compile 'junit:junit'
 }
