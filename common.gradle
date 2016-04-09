@@ -13,6 +13,7 @@ repositories {
 dependencyManagement {
 	imports {
 		mavenBom 'io.dropwizard:dropwizard-bom:0.9.+'
+		mavenBom 'com.yammer.tenacity:tenacity-bom:0.8.+'
 	}
 
 	dependencies {

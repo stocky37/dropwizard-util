@@ -2,27 +2,30 @@ package me.stockwells.util.core;
 
 import me.stockwells.util.api.resources.Resource;
 
+import java.io.Serializable;
 import java.util.Optional;
 
-public abstract class AbstractResource<T, U> implements Resource<T, U> {
-	private final Service<T,U> service;
+public class AbstractResource<T, U, I> implements Resource<T, U> {
+	private final Service<T, U, I> service;
+	private final I id;
 
-	public AbstractResource(Service<T, U> service) {
+	public AbstractResource(Service<T, U, I> service, I id) {
 		this.service = service;
+		this.id = id;
 	}
 
 	@Override
 	public Optional<T> get() {
-		return service.get();
+		return service.find(id);
 	}
 
 	@Override
 	public Optional<T> update(U update) {
-		return service.update(update);
+		return service.update(id, update);
 	}
 
 	@Override
 	public Optional<T> delete() {
-		return service.delete();
+		return service.delete(id);
 	}
 }

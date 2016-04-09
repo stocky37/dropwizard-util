@@ -1,0 +1,5 @@
+dependencies {
+	compile project(':core')
+	compile project(':db')
+	compile 'com.yammer.tenacity:tenacity-core'
+}

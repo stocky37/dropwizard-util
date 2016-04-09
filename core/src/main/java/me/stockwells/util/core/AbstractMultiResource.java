@@ -1,25 +1,31 @@
 package me.stockwells.util.core;
 
 import me.stockwells.util.api.resources.MultiResource;
+import me.stockwells.util.api.resources.Resource;
 
 import java.io.Serializable;
 import java.util.Collection;
 
-public abstract class AbstractMultiResource<T, I extends Serializable> implements MultiResource<T, I> {
+public class AbstractMultiResource<T, U, I> implements MultiResource<T, I> {
 
-	private final MultiService<T, I> service;
+	private final Service<T, U, I> service;
 
-	public AbstractMultiResource(MultiService<T, I> service) {
+	public AbstractMultiResource(Service<T, U, I> service) {
 		this.service = service;
 	}
 
 	@Override
-	public Collection<T> all() {
-		return service.all();
+	public Collection<T> list() {
+		return service.list();
 	}
 
 	@Override
-	public T add(T obj) {
-		return service.add(obj);
+	public T create(T obj) {
+		return service.create(obj);
+	}
+
+	@Override
+	public Resource<T, U> find(I id) {
+		return new AbstractResource<>(service, id);
 	}
 }

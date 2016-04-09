@@ -1,51 +1,65 @@
 package me.stockwells.util.db;
 
 import io.dropwizard.hibernate.AbstractDAO;
+import me.stockwells.util.core.Service;
 import org.hibernate.SessionFactory;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
-
-import static com.google.common.base.Preconditions.checkNotNull;
-
+import java.util.stream.Collectors;
 
 // Note: Entity MUST be the first generic type of any super classes, since AbstractDAO
 // calls getGenericType(), which will always retrieve the first generic type attached
-public abstract class EntityDAO<E, I extends Serializable> extends AbstractDAO<E> implements DAO<E, I> {
+@ParametersAreNonnullByDefault
+public abstract class EntityDAO<E, T, U, I extends Serializable> extends AbstractDAO<E>
+	implements Service<T, U, I>, EntityTransformer<T, U, E> {
 
 	public EntityDAO(SessionFactory sessionFactory) {
 		super(sessionFactory);
 	}
 
-	@Nonnull protected abstract String getAllNamedQuery();
+	@Nonnull
+	protected abstract String listAllNamedQuery();
 
 	@Override
-	public List<E> all() {
-		return list(namedQuery(getAllNamedQuery()));
+	public List<T> list() {
+		return list(namedQuery(listAllNamedQuery())).stream()
+			.map(this::from)
+			.collect(Collectors.toList());
 	}
 
 	@Override
-	public Optional<E> findById(I id) {
-		return Optional.ofNullable(get(id));
-	}
-
-	@Override
-	public E create(E entity) {
-		currentSession().save(entity);
+	public T create(T entity) {
+		currentSession().save(to(entity));
 		return entity;
 	}
 
 	@Override
-	public E update(E update) {
-		currentSession().update(update);
-		return update;
+	public Optional<T> find(I id) {
+		return Optional.ofNullable(from(get(id)));
 	}
 
 	@Override
-	public E delete(E entity) {
-		currentSession().delete(checkNotNull(entity));
-		return entity;
+	public Optional<T> update(I id, U update) {
+		@Nullable final E existing = get(id);
+		if(existing == null) {
+			return Optional.empty();
+		}
+		final E updated = merge(existing, update);
+		currentSession().update(updated);
+		return Optional.ofNullable(from(updated));
+	}
+
+	@Override
+	public Optional<T> delete(I id) {
+		@Nullable final E existing = get(id);
+		if(existing != null) {
+			currentSession().delete(existing);
+		}
+		return Optional.ofNullable(from(existing));
 	}
 }
