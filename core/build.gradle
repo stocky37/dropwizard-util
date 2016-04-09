@@ -1,3 +1,6 @@
 dependencies {
 	compile project(':api')
+	compile 'io.dropwizard:dropwizard-core'
+	compile 'io.dropwizard.modules:dropwizard-java8'
+	compile 'com.fasterxml.jackson.module:jackson-module-parameter-names'
 }

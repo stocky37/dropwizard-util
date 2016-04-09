@@ -18,7 +18,7 @@ dependencyManagement {
 
 	dependencies {
 		dependency 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.6.+'
-		dependency 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.6.+'
+		dependency 'io.dropwizard.modules:dropwizard-java8:0.9.+'
 		dependency 'com.smoketurner:dropwizard-swagger:0.9.+'
 		dependency 'org.springframework:spring-core:4.+'
 		dependency 'redis.clients:jedis:2.8.+'
