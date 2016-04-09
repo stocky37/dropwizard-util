@@ -14,5 +14,6 @@ public class Jdk8Bundle implements Bundle {
 		bootstrap.addBundle(new Java8Bundle());
 	}
 
+
 	public void run(Environment environment) {}
 }
