@@ -1,3 +1,8 @@
+ext {
+	name = 'Dropwizard Testing Utilities'
+	description = 'Utilities for testing Dropwizard application'
+}
+
 dependencies {
 	compile 'commons-io:commons-io'
 	compile 'io.dropwizard:dropwizard-testing'

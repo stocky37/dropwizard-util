@@ -1,3 +1,8 @@
+ext {
+	name = 'Dropwizard Tenacity Utilities'
+	description = 'Standard Tenacity utilities for Dropwizard applications'
+}
+
 dependencies {
 	compile project(':core')
 	compile project(':db')
