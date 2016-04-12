@@ -1,6 +1,9 @@
 language: java
 jdk:
   - oraclejdk8
+branches:
+  only:
+    - master
 after_success: ./gradlew publish
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
