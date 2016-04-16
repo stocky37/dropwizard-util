@@ -1,5 +1,6 @@
 package me.stockwells.util.cache;
 
+import com.google.common.base.Throwables;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
@@ -10,29 +11,17 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 @ParametersAreNonnullByDefault
 public class CacheLoaders {
-
-	public static <K, V> CacheLoader<K, V> from(LoadingCache<K, V> loadingCache) {
-		return from(k -> {
-			return loadingCache.getUnchecked(checkNotNull(k));
-		});
+	public static <K, V> CacheLoader<K, V> fromFunction(Function<K, V> function) {
+		return CacheLoader.from(function::apply);
 	}
 
-	public static <K, V> CacheLoader<K, V> from(Function<K, V> function) {
-		return new FunctionToCacheLoader<>(function);
+	public static <K, V> Function<K, V> toFunction(CacheLoader<K,V> loader) {
+		return key -> {
+			try {
+				return loader.load(key);
+			} catch(Exception e) {
+				throw Throwables.propagate(e);
+			}
+		};
 	}
-
-	private static final class FunctionToCacheLoader<K, V> extends CacheLoader<K, V> {
-		private final Function<K, V> computingFunction;
-
-		FunctionToCacheLoader(Function<K, V> computingFunction) {
-			this.computingFunction = checkNotNull(computingFunction);
-		}
-
-		@Override
-		public V load(K key) {
-			return computingFunction.apply(checkNotNull(key));
-		}
-	}
-
-
 }
