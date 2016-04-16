@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 
 @ParametersAreNonnullByDefault
 public abstract class InvalidateCacheTask<K, V> extends Task {
-	public static final String KEY_PARAM = "keys";
+	private static final String KEY_PARAM = "keys";
 
 	private final Cache<K, V> cache;
 

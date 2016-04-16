@@ -31,9 +31,9 @@ public class ProxyLoadingCache<K, V> extends ForwardingLoadingCache<K, V> {
 	}
 
 	@Override
-	public void putAll(Map<? extends K, ? extends V> m) {
-		secondaryCache.putAll(m);
-		super.putAll(m);
+	public void putAll(Map<? extends K, ? extends V> map) {
+		secondaryCache.putAll(map);
+		super.putAll(map);
 	}
 
 	@Override
