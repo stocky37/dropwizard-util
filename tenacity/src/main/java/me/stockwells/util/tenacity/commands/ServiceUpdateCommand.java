@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class ServiceUpdateCommand<T, U, I> extends TenacityCommand<Optional<T>> {
 
-	private final Service<T,U,I> service;
+	private final Service<T, U, I> service;
 	private final I id;
 	private final U update;
 

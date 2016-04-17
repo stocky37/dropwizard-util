@@ -9,6 +9,7 @@ import io.dropwizard.testing.FixtureHelpers;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.apache.commons.io.FilenameUtils;
 import org.hamcrest.CoreMatchers;
+import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
@@ -61,31 +62,39 @@ public abstract class RepresentationTest<T> {
 			.forEach(this::assertValidation);
 	}
 
-	protected void assertDeserialisation(Fixture<T> f) {
+	private void assertDeserialisation(Fixture<T> f) {
 		try {
 			assertThat(
 				f.getFixture(),
 				deserialise(fixture(f.getFixture())),
-				is(f.getRepresentation())
+				deserialiseMatcher(f.getRepresentation())
 			);
 		} catch(IOException e) {
 			Throwables.propagate(e);
 		}
 	}
 
-	protected void assertSerialisation(Fixture<T> f) {
+	protected Matcher<T> deserialiseMatcher(T representation) {
+		return is(representation);
+	}
+
+	private void assertSerialisation(Fixture<T> f) {
 		try {
 			assertThat(
 				f.getFixture(),
 				serialise(f.getRepresentation()),
-				sameJSONAs(fixture(f.getFixture()))
+				serialiseMatcher(fixture(f.getFixture()))
 			);
 		} catch(IOException e) {
 			Throwables.propagate(e);
 		}
 	}
 
-	protected void assertValidation(Fixture<T> f) {
+	protected Matcher<? super String> serialiseMatcher(String fixture) {
+		return sameJSONAs(fixture);
+	}
+
+	private void assertValidation(Fixture<T> f) {
 		try {
 			Set<ConstraintViolation<T>> violations = validator().validate(deserialise(fixture(f.getFixture())));
 			if(f.getValidationMode() == ValidationMode.INVALIDATE) {
@@ -170,6 +179,11 @@ public abstract class RepresentationTest<T> {
 			return validationMode;
 		}
 
+		public Fixture<T> serialisationMode(SerialisationMode serialisationMode) {
+			this.serialisationMode = serialisationMode;
+			return this;
+		}
+
 		public Fixture<T> serialise() {
 			return serialisationMode(SerialisationMode.SERIALISE);
 		}
@@ -178,8 +192,8 @@ public abstract class RepresentationTest<T> {
 			return serialisationMode(SerialisationMode.DESERIALISE);
 		}
 
-		public Fixture<T> serialisationMode(SerialisationMode serialisationMode) {
-			this.serialisationMode = serialisationMode;
+		public Fixture<T> validationMode(ValidationMode validationMode) {
+			this.validationMode = validationMode;
 			return this;
 		}
 
@@ -189,11 +203,6 @@ public abstract class RepresentationTest<T> {
 
 		public Fixture<T> invalidate() {
 			return validationMode(ValidationMode.INVALIDATE);
-		}
-
-		public Fixture<T> validationMode(ValidationMode validationMode) {
-			this.validationMode = validationMode;
-			return this;
 		}
 	}
 

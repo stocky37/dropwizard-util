@@ -25,7 +25,7 @@ public class CreatedDynamicFeature implements DynamicFeature {
 	public void configure(ResourceInfo resourceInfo, FeatureContext context) {
 		Created annotation = AnnotationUtils.findAnnotation(resourceInfo.getResourceMethod(), Created.class);
 		if(annotation != null){
-			context.register(new JsonCreatedFilter(annotation.value(), mapper));
+			context.register(new JsonIdCreatedFilter(annotation.value(), mapper));
 		}
 	}
 }

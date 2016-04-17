@@ -11,12 +11,12 @@ import java.net.URI;
 import java.util.Optional;
 
 @ParametersAreNonnullByDefault
-public class JsonCreatedFilter extends CreatedFilter {
+public class JsonIdCreatedFilter extends CreatedFilter {
 
 	private final String field;
 	private final ObjectMapper mapper;
 
-		public JsonCreatedFilter(String field, ObjectMapper mapper) {
+	public JsonIdCreatedFilter(String field, ObjectMapper mapper) {
 		this.field = field;
 		this.mapper = mapper;
 	}
@@ -24,10 +24,14 @@ public class JsonCreatedFilter extends CreatedFilter {
 	@Override
 	protected Optional<URI> location(UriInfo uri, ContainerResponseContext response) {
 		JsonNode node = mapper.valueToTree(response.getEntity());
-		JsonNode valueNode = node.get(field);
-		if(valueNode == null || valueNode.isNull()) {
+		if(node == null)
 			return Optional.empty();
-		}
-		return Optional.of(uri.getAbsolutePathBuilder().path(valueNode.asText()).build());
+
+		JsonNode valueNode = node.get(field);
+		if(valueNode == null || valueNode.isNull())
+			return Optional.empty();
+
+		return Optional.of(uri.getAbsolutePathBuilder().
+			path(valueNode.asText()).build());
 	}
 }
