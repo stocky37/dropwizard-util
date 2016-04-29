@@ -5,6 +5,6 @@ ext {
 
 dependencies {
 	compile project(':api')
-	compile 'io.dropwizard:dropwizard-jersey'
+	compile 'io.dropwizard:dropwizard-core'
 	compile 'org.springframework:spring-core'
 }
