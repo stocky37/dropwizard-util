@@ -8,11 +8,7 @@ import io.dropwizard.jackson.Jackson;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.annotation.Priority;
 import javax.ws.rs.Priorities;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
-import javax.ws.rs.container.DynamicFeature;
-import javax.ws.rs.container.ResourceInfo;
+import javax.ws.rs.container.*;
 import javax.ws.rs.core.FeatureContext;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
@@ -24,6 +20,7 @@ import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.defaultString;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+
 
 @ParametersAreNonnullByDefault
 public class LocationFeature implements DynamicFeature {
@@ -50,7 +47,7 @@ public class LocationFeature implements DynamicFeature {
 		private final ObjectMapper mapper;
 		private final Location locationAnnotation;
 
-		public LocationHeaderFilter(ObjectMapper mapper, Location locationAnnotation) {
+		LocationHeaderFilter(ObjectMapper mapper, Location locationAnnotation) {
 			this.mapper = mapper;
 			this.locationAnnotation = locationAnnotation;
 		}
@@ -64,11 +61,10 @@ public class LocationFeature implements DynamicFeature {
 		private URI buildLocationURI(ContainerRequestContext request, ContainerResponseContext response) {
 			if(isBlank(locationAnnotation.path()))
 				return request.getUriInfo().getAbsolutePathBuilder().build();
-			UriBuilder builder = locationAnnotation.isAbsolute()
-				? request.getUriInfo().getAbsolutePathBuilder()
-				: request.getUriInfo().getBaseUriBuilder();
-			if(!isBlank(locationAnnotation.path()))
-				builder.path(locationAnnotation.path());
+			UriBuilder builder = (locationAnnotation.isAbsolute()
+				? request.getUriInfo().getBaseUriBuilder()
+				: request.getUriInfo().getAbsolutePathBuilder()
+			).path(locationAnnotation.path());
 
 			Arrays.stream(locationAnnotation.params())
 				.filter(x -> x.type() == SourceParam.ParamType.QUERY)
