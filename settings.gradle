@@ -4,6 +4,7 @@ include 'cache'
 include 'core'
 include 'db'
 include 'jersey'
+include 'jms'
 include 'tenacity'
 include 'testing'
 
