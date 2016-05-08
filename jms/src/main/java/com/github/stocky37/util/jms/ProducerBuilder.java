@@ -22,32 +22,41 @@ public class ProducerBuilder implements AutoCloseable {
 	}
 
 	public ProducerBuilder enableId() throws JMSException {
-		producer.setDisableMessageID(false);
-		return this;
+		return disableId(false);
 	}
 
 	public ProducerBuilder disableId() throws JMSException {
-		producer.setDisableMessageID(true);
+		return disableId(true);
+	}
+
+	public ProducerBuilder disableId(boolean disableId) throws JMSException {
+		producer.setDisableMessageID(disableId);
 		return this;
 	}
 
 	public ProducerBuilder enableTimestamp() throws JMSException {
-		producer.setDisableMessageTimestamp(false);
-		return this;
+		return disableTimestamp(false);
 	}
 
 	public ProducerBuilder disableTimestamp() throws JMSException {
-		producer.setDisableMessageTimestamp(true);
+		return disableTimestamp(true);
+	}
+
+	public ProducerBuilder disableTimestamp(boolean disableTimestamp) throws JMSException {
+		producer.setDisableMessageTimestamp(disableTimestamp);
 		return this;
 	}
 
 	public ProducerBuilder nonPersistent() throws JMSException {
-		producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-		return this;
+		return deliveryMode(DeliveryMode.NON_PERSISTENT);
 	}
 
 	public ProducerBuilder persistent() throws JMSException {
-		producer.setDeliveryMode(DeliveryMode.PERSISTENT);
+		return deliveryMode(DeliveryMode.PERSISTENT);
+	}
+
+	public ProducerBuilder deliveryMode(int deliveryMode) throws JMSException {
+		producer.setDeliveryMode(deliveryMode);
 		return this;
 	}
 

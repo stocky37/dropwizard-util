@@ -14,27 +14,32 @@ public class SessionBuilder implements AutoCloseable {
 	}
 
 	public SessionBuilder transacted() {
-		transacted = true;
-		return this;
+		return setTransacted(true);
 	}
 
 	public SessionBuilder notTransacted() {
-		transacted = false;
+		return setTransacted(false);
+	}
+
+	public SessionBuilder setTransacted(boolean transacted) {
+		this.transacted = transacted;
 		return this;
 	}
 
 	public SessionBuilder autoAcknowledge() {
-		acknowledgeMode = Session.AUTO_ACKNOWLEDGE;
-		return this;
+		return this.setAcknowledgeMode(Session.AUTO_ACKNOWLEDGE);
 	}
 
 	public SessionBuilder duplicatesOk() {
-		acknowledgeMode = Session.DUPS_OK_ACKNOWLEDGE;
-		return this;
+		return setAcknowledgeMode(Session.DUPS_OK_ACKNOWLEDGE);
 	}
 
 	public SessionBuilder clientAcknowledge() {
-		acknowledgeMode = Session.CLIENT_ACKNOWLEDGE;
+		return setAcknowledgeMode(Session.CLIENT_ACKNOWLEDGE);
+	}
+
+	public SessionBuilder setAcknowledgeMode(int acknowledgeMode) {
+		this.acknowledgeMode = Session.CLIENT_ACKNOWLEDGE;
 		return this;
 	}
 
