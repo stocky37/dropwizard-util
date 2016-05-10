@@ -26,7 +26,7 @@ public class SuccessStatusFeature implements DynamicFeature {
 
 	private Status getStatusAnnotation(ResourceInfo info) {
 		for(Annotation annotation : info.getResourceMethod().getAnnotations()) {
-			final Status statusAnnotation = annotation.getClass().getAnnotation(Status.class);
+			final Status statusAnnotation = annotation.annotationType().getAnnotation(Status.class);
 			if(statusAnnotation != null)
 				return statusAnnotation;
 		}

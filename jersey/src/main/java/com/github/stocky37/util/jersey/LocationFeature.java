@@ -16,6 +16,7 @@ import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.defaultString;
@@ -109,10 +110,8 @@ public class LocationFeature implements DynamicFeature {
 			final JsonNode node = mapper.valueToTree(response.getEntity());
 			if(node == null || node.isNull())
 				return source.fallback();
-			final JsonNode valueNode = node.get(source.key());
-			if(valueNode == null || valueNode.isNull())
-				return source.fallback();
-			return defaultString(valueNode.textValue(), source.fallback());
+			final List<String> values = node.findValuesAsText(source.key());
+			return values.isEmpty() ? source.fallback() : values.get(0);
 		}
 
 	}
