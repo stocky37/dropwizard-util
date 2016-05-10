@@ -22,7 +22,7 @@ subprojects {
 
 	archivesBaseName = "$rootProject.name-$project.name"
 	group = 'com.github.stocky37'
-	version.with { major = 0; minor = 2; patch = 0 }
+	version.with { major = 0; minor = 1; patch = 0 }
 
 	repositories {
 		mavenCentral()
