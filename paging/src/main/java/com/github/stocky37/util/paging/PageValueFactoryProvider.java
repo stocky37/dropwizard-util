@@ -1,4 +1,4 @@
-package com.github.stocky37.util.core.paging;
+package com.github.stocky37.util.paging;
 
 import org.glassfish.hk2.api.Factory;
 import org.glassfish.hk2.api.ServiceLocator;
@@ -22,7 +22,7 @@ public class PageValueFactoryProvider extends AbstractValueFactoryProvider {
 	@Override
 	protected Factory<Page> createValueFactory(Parameter parameter) {
 		return parameter.isAnnotationPresent(PagingParam.class) && parameter.getRawType().isAssignableFrom(Page.class)
-			? new PageContainerRequestValueFactory(new PageParamFactory(parameter.getAnnotation(PagingParam.class)))
+			? new PageContainerRequestValueFactory(new PageFactory(parameter.getAnnotation(PagingParam.class)))
 			: null;
 	}
 
@@ -34,15 +34,15 @@ public class PageValueFactoryProvider extends AbstractValueFactoryProvider {
 	}
 
 	static class PageContainerRequestValueFactory extends AbstractContainerRequestValueFactory<Page> {
-		private final PageParamFactory pageParamFactory;
+		private final PageFactory pageFactory;
 
-		PageContainerRequestValueFactory(PageParamFactory pageParamFactory) {
-			this.pageParamFactory = pageParamFactory;
+		PageContainerRequestValueFactory(PageFactory pageFactory) {
+			this.pageFactory = pageFactory;
 		}
 
 		@Override
 		public Page provide() {
-			return pageParamFactory.build(getContainerRequest());
+			return pageFactory.build(getContainerRequest());
 		}
 	}
 }

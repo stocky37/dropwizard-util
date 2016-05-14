@@ -1,4 +1,4 @@
-package com.github.stocky37.util.core.paging;
+package com.github.stocky37.util.paging;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.FIELD, ElementType.PARAMETER })
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 public @interface PagingParam {
 	PagingStrategy strategy() default PagingStrategy.NUMBERED;
 

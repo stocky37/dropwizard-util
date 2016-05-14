@@ -1,0 +1,8 @@
+ext {
+	name = 'Dropwizard Pagination'
+	description = 'Pagination utilities for Dropwizard applications'
+}
+
+dependencies {
+	compile 'io.dropwizard:dropwizard-core'
+}

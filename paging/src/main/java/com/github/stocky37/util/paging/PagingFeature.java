@@ -1,4 +1,4 @@
-package com.github.stocky37.util.core.paging;
+package com.github.stocky37.util.paging;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
@@ -30,7 +30,7 @@ public class PagingFeature implements DynamicFeature {
 			return;
 		}
 
-		context.register(new PagingFilter(new PageParamFactory(paging)));
+		context.register(new PagingFilter(new PageFactory(paging)));
 	}
 
 	private PagingParam pagingParam(Method method) {
@@ -45,10 +45,10 @@ public class PagingFeature implements DynamicFeature {
 	@Priority(Priorities.HEADER_DECORATOR - 1)
 	private static class PagingFilter implements ContainerResponseFilter {
 		private static final Joiner LINK_JOINER = Joiner.on(",").skipNulls();
-		private final PageParamFactory pageParamFactory;
+		private final PageFactory pageFactory;
 
-		PagingFilter(PageParamFactory pageParamFactory) {
-			this.pageParamFactory = pageParamFactory;
+		PagingFilter(PageFactory pageFactory) {
+			this.pageFactory = pageFactory;
 		}
 
 		@Override
@@ -62,7 +62,7 @@ public class PagingFeature implements DynamicFeature {
 		}
 
 		private Set<Link> buildLinks(ContainerRequestContext req, int total) {
-			final Page page = pageParamFactory.build(req);
+			final Page page = pageFactory.build(req);
 			final ImmutableSet.Builder<Link> builder = ImmutableSet.builder();
 
 			builder.add(link(req, page.first(), "first"));
@@ -81,8 +81,8 @@ public class PagingFeature implements DynamicFeature {
 
 		private Link link(ContainerRequestContext request, Page page, String rel) {
 			return page == null ? null : Link.fromUriBuilder(request.getUriInfo().getAbsolutePathBuilder()
-				.queryParam(pageParamFactory.getIndexParam(), page.index())
-				.queryParam(pageParamFactory.getSizeParam(), page.size())
+				.queryParam(pageFactory.getIndexParam(), page.index())
+				.queryParam(pageFactory.getSizeParam(), page.size())
 			).rel(rel).build();
 		}
 	}

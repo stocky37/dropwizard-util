@@ -1,4 +1,4 @@
-package com.github.stocky37.util.core.paging;
+package com.github.stocky37.util.paging;
 
 import io.dropwizard.jersey.params.IntParam;
 
@@ -6,10 +6,10 @@ import javax.ws.rs.container.ContainerRequestContext;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-public class PageParamFactory {
+public class PageFactory {
 	private final PagingParam paging;
 
-	public PageParamFactory(PagingParam paging) {
+	public PageFactory(PagingParam paging) {
 		this.paging = paging;
 	}
 

@@ -1,4 +1,4 @@
-package com.github.stocky37.util.core.paging;
+package com.github.stocky37.util.paging;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Optional;
