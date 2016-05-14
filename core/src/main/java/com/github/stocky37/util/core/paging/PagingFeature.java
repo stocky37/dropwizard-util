@@ -51,20 +51,13 @@ public class PagingFeature implements DynamicFeature {
 			this.pageParamFactory = pageParamFactory;
 		}
 
-		private static Optional<Integer> getTotal() {
-			try {
-				return Optional.ofNullable(TOTAL_COUNT.get());
-			} catch(final NumberFormatException ignored) {
-				return Optional.empty();
-			}
-		}
-
 		@Override
 		public void filter(ContainerRequestContext request, ContainerResponseContext response) throws IOException {
-			final Optional<Integer> total = getTotal();
+			final Optional<Integer> total = Optional.ofNullable(TOTAL_COUNT.get());
 			if(total.isPresent()) {
 				response.getHeaders().add(HttpHeaders.LINK, LINK_JOINER.join(buildLinks(request, total.get())));
 				response.getHeaders().add(COUNT_HEADER, total.get());
+				TOTAL_COUNT.remove();
 			}
 		}
 
