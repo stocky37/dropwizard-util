@@ -13,7 +13,6 @@ import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.FeatureContext;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Link;
-import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -64,35 +63,31 @@ public class PagingFeature implements DynamicFeature {
 		public void filter(ContainerRequestContext request, ContainerResponseContext response) throws IOException {
 			final Optional<Integer> total = getTotal();
 			if(total.isPresent()) {
-				response.getHeaders().add(HttpHeaders.LINK, LINK_JOINER.join(buildLinks(request, response, total.get())));
+				response.getHeaders().add(HttpHeaders.LINK, LINK_JOINER.join(buildLinks(request, total.get())));
 				response.getHeaders().add(COUNT_HEADER, total.get());
 			}
 		}
 
-		private Set<Link> buildLinks(ContainerRequestContext req, ContainerResponseContext resp, int total) {
+		private Set<Link> buildLinks(ContainerRequestContext req, int total) {
 			final Page page = pageParamFactory.build(req);
 			final ImmutableSet.Builder<Link> builder = ImmutableSet.builder();
 
-			builder.add(buildLink(req, resp, page.first(), "first"));
-			builder.add(buildLink(req, resp, page.last(total), "last"));
+			builder.add(link(req, page.first(), "first"));
+			builder.add(link(req, page.last(total), "last"));
 
 			final Optional<Page> previous = page.previous();
 			if(previous.isPresent())
-				builder.add(buildLink(req, resp, previous.get(), "prev"));
+				builder.add(link(req, previous.get(), "prev"));
 
 			final Optional<Page> next = page.next(total);
 			if(next.isPresent())
-				builder.add(buildLink(req, resp, page.next(total).orElse(null), "next"));
+				builder.add(link(req, next.get(), "next"));
 
 			return builder.build();
 		}
 
-		private Link buildLink(ContainerRequestContext req, ContainerResponseContext resp, Page page, String rel) {
-			return page == null ? null : link(req.getUriInfo().getAbsolutePathBuilder(), page, rel);
-		}
-
-		private Link link(UriBuilder baseUri, Page page, String rel) {
-			return Link.fromUriBuilder(baseUri.clone()
+		private Link link(ContainerRequestContext request, Page page, String rel) {
+			return page == null ? null : Link.fromUriBuilder(request.getUriInfo().getAbsolutePathBuilder()
 				.queryParam(pageParamFactory.getIndexParam(), page.index())
 				.queryParam(pageParamFactory.getSizeParam(), page.size())
 			).rel(rel).build();
