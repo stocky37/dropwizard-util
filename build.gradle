@@ -30,8 +30,8 @@ subprojects {
 
 	dependencyManagement {
 		imports {
-			mavenBom 'com.yammer.tenacity:tenacity-bom:0.8.2'
-			mavenBom 'io.dropwizard:dropwizard-bom:1.0.0-rc2'
+			mavenBom 'com.yammer.tenacity:tenacity-bom:0.8.3'
+			mavenBom 'io.dropwizard:dropwizard-bom:1.0.0-rc4'
 		}
 
 		dependencies {
