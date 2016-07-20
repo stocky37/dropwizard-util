@@ -4,6 +4,7 @@ ext {
 }
 
 dependencies {
+	compile 'com.fasterxml.jackson.module:jackson-module-parameter-names'
 	compile 'commons-io:commons-io'
 	compile 'io.dropwizard:dropwizard-testing'
 	compile 'nl.jqno.equalsverifier:equalsverifier'

@@ -3,6 +3,7 @@ package com.github.stocky37.util.testing;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.google.common.base.Throwables;
 import io.dropwizard.jackson.Jackson;
 import io.dropwizard.testing.FixtureHelpers;
@@ -140,7 +141,8 @@ public abstract class RepresentationTest<T> {
 	}
 
 	protected ObjectMapper objectMapper() {
-		return Jackson.newObjectMapper();
+		return Jackson.newObjectMapper()
+			.registerModule(new ParameterNamesModule());
 	}
 
 	protected Validator validator() {
