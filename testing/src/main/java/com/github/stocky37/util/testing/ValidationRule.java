@@ -15,6 +15,7 @@ import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertThat;
 
 public class ValidationRule<T> extends RepresentationRule<T> {
+	private static final String ERR_MSG_FORMAT = "%s: %s";
 	private final Validator validator;
 
 	public ValidationRule(Class<T> type, Object target) {
@@ -59,6 +60,8 @@ public class ValidationRule<T> extends RepresentationRule<T> {
 	}
 
 	private String violationsMessage(Collection<ConstraintViolation<T>> violations) {
-		return String.join("\n", violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toSet()));
+		return String.join("\n", violations.stream()
+			.map(v -> String.format(ERR_MSG_FORMAT, v.getPropertyPath(), v.getMessage()))
+			.collect(Collectors.toSet()));
 	}
 }
