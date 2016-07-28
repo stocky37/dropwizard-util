@@ -30,11 +30,14 @@ subprojects {
 
 	dependencyManagement {
 		imports {
+			mavenBom 'org.hibernate.ogm:hibernate-ogm-bom:5.0.1.Final'
 			mavenBom 'com.yammer.tenacity:tenacity-bom:0.8.3'
 			mavenBom 'io.dropwizard:dropwizard-bom:1.0.0-rc4'
 		}
 
 		dependencies {
+			dependency 'org.hibernate:hibernate-core:5.0.1.Final'
+
 			dependency 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.7.3'
 			dependency 'com.smoketurner:dropwizard-swagger:1.0.0-rc-1'
 			dependency 'redis.clients:jedis:2.8.+'
@@ -42,6 +45,7 @@ subprojects {
 			// utils
 			dependency 'org.springframework:spring-core:4.+'
 			dependency 'commons-io:commons-io:2.+'
+			dependency 'org.apache.commons:commons-collections4:4.1'
 
 			// testing
 			dependency 'junit:junit:4.12'
