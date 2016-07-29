@@ -6,6 +6,7 @@ ext {
 dependencies {
 	compile project(':core')
 	compile 'io.dropwizard:dropwizard-client'
+	compile 'io.dropwizard:dropwizard-hibernate'
 	compile 'org.hibernate.ogm:hibernate-ogm-mongodb'
 	compile 'com.google.guava:guava'
 	compile 'org.apache.commons:commons-collections4'
