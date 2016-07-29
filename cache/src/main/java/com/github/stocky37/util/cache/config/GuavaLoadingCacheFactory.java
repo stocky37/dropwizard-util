@@ -18,9 +18,4 @@ public class GuavaLoadingCacheFactory<K, V> extends GuavaCacheFactory<K, V> impl
 	public <K1 extends K, V1 extends V> LoadingCache<K1, V1> build(CacheLoader<K1, V1> loader) {
 		return getCacheBuilder().build(loader);
 	}
-
-	@Override
-	public <K1 extends K, V1 extends V> LoadingCache<K1, V1> build(CacheLoader<K1, V1> loader, Environment environment) {
-		return build(loader);
-	}
 }
