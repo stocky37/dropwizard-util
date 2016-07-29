@@ -2,7 +2,6 @@ package com.github.stocky37.util.cache.redis;
 
 import com.github.stocky37.util.cache.StandardLoadingCache;
 import com.google.common.cache.CacheLoader;
-import com.google.common.collect.Iterables;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
@@ -11,8 +10,6 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.time.Duration;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @ParametersAreNonnullByDefault
 public class RedisCache extends StandardLoadingCache<String, String> {
@@ -49,15 +46,6 @@ public class RedisCache extends StandardLoadingCache<String, String> {
 	public void invalidate(Object key) {
 		try(Jedis jedis = pool.getResource()) {
 			jedis.del(Objects.toString(key));
-		}
-	}
-
-	@Override
-	public void invalidateAll(Iterable<?> keys) {
-		try(Jedis jedis = pool.getResource()) {
-			jedis.del(Iterables.toArray(StreamSupport.stream(keys.spliterator(), false)
-				.map(Objects::toString)
-				.collect(Collectors.toSet()), String.class));
 		}
 	}
 }
