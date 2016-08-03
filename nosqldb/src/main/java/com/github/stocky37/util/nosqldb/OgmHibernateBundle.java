@@ -6,9 +6,10 @@ import com.github.stocky37.util.nosqldb.config.NoSQLDatabaseConfiguration;
 import com.google.common.collect.ImmutableList;
 import io.dropwizard.Configuration;
 import io.dropwizard.ConfiguredBundle;
+import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.hibernate.UnitOfWorkApplicationListener;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.ogm.OgmSessionFactory;
 import org.hibernate.ogm.boot.OgmSessionFactoryBuilder;
@@ -22,6 +23,7 @@ import java.util.TreeSet;
 
 public abstract class OgmHibernateBundle<T extends Configuration>
 	implements ConfiguredBundle<T>, NoSQLDatabaseConfiguration<T> {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(OgmHibernateBundle.class);
 
 	private final Collection<Class<?>> entities;
@@ -37,6 +39,10 @@ public abstract class OgmHibernateBundle<T extends Configuration>
 		this.entities = ImmutableList.copyOf(entities);
 	}
 
+	protected String name() {
+		return HibernateBundle.DEFAULT_NAME;
+	}
+
 	@Override
 	public final void initialize(Bootstrap<?> bootstrap) {
 		bootstrap.getObjectMapper().registerModule(createHibernate5Module());
@@ -50,6 +56,7 @@ public abstract class OgmHibernateBundle<T extends Configuration>
 			.getSessionFactoryBuilder()
 			.unwrap(OgmSessionFactoryBuilder.class)
 			.build();
+		registerUnitOfWorkListerIfAbsent(environment).registerSessionFactory(name(), sessionFactory);
 	}
 
 	public OgmSessionFactory getSessionFactory() {
@@ -83,6 +90,17 @@ public abstract class OgmHibernateBundle<T extends Configuration>
 		}
 		LOGGER.info("Entity classes: {}", entityClasses);
 		return metadata;
+	}
+
+	private UnitOfWorkApplicationListener registerUnitOfWorkListerIfAbsent(Environment environment) {
+		for (Object singleton : environment.jersey().getResourceConfig().getSingletons()) {
+			if (singleton instanceof UnitOfWorkApplicationListener) {
+				return (UnitOfWorkApplicationListener) singleton;
+			}
+		}
+		final UnitOfWorkApplicationListener listener = new UnitOfWorkApplicationListener();
+		environment.jersey().register(listener);
+		return listener;
 	}
 
 }
