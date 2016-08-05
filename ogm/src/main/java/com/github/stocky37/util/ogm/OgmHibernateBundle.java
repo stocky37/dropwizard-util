@@ -13,6 +13,8 @@ import io.dropwizard.setup.Environment;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.ogm.OgmSessionFactory;
 import org.hibernate.ogm.boot.OgmSessionFactoryBuilder;
+import org.hibernate.ogm.engine.spi.OgmSessionFactoryImplementor;
+import org.hibernate.ogm.hibernatecore.impl.OgmSessionFactoryImpl;
 import org.hibernate.service.ServiceRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,12 +53,17 @@ public abstract class OgmHibernateBundle<T extends Configuration>
 	@Override
 	public void run(T configuration, Environment environment) throws Exception {
 		final ServiceRegistry registry = getServiceRegistry(configuration);
-		sessionFactory = addAnnotatedClasses(new MetadataSources(registry))
-			.buildMetadata()
-			.getSessionFactoryBuilder()
-			.unwrap(OgmSessionFactoryBuilder.class)
-			.build();
-		registerUnitOfWorkListerIfAbsent(environment).registerSessionFactory(name(), sessionFactory);
+
+		final OgmSessionFactoryWrapper wrapper = new OgmSessionFactoryWrapper(
+			(OgmSessionFactoryImplementor
+				) addAnnotatedClasses(new MetadataSources(registry))
+				.buildMetadata()
+				.getSessionFactoryBuilder()
+				.unwrap(OgmSessionFactoryBuilder.class)
+				.build()
+		);
+		this.sessionFactory = wrapper;
+		registerUnitOfWorkListenerIfAbsent(environment).registerSessionFactory(name(), wrapper);
 	}
 
 	public OgmSessionFactory getSessionFactory() {
@@ -92,7 +99,7 @@ public abstract class OgmHibernateBundle<T extends Configuration>
 		return metadata;
 	}
 
-	private UnitOfWorkApplicationListener registerUnitOfWorkListerIfAbsent(Environment environment) {
+	private UnitOfWorkApplicationListener registerUnitOfWorkListenerIfAbsent(Environment environment) {
 		for (Object singleton : environment.jersey().getResourceConfig().getSingletons()) {
 			if (singleton instanceof UnitOfWorkApplicationListener) {
 				return (UnitOfWorkApplicationListener) singleton;

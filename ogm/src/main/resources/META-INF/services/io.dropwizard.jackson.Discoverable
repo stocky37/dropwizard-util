@@ -1,2 +1,1 @@
-au.com.stockwells.rates.api.repr.Rate
-ogm.config.OgmDataSource
+com.github.stocky37.util.ogm.config.OgmDataSource
