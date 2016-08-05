@@ -1,4 +1,4 @@
-package com.github.stocky37.util.nosqldb;
+package com.github.stocky37.util.ogm;
 
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.ogm.OgmSession;

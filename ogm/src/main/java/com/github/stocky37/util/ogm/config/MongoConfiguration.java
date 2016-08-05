@@ -1,4 +1,4 @@
-package com.github.stocky37.util.nosqldb.config;
+package com.github.stocky37.util.ogm.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.primitives.Ints;

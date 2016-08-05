@@ -1,0 +1,2 @@
+ogm.config.MongoDataSource
+com.github.stock37.util.ogm.config.FongoDataSource

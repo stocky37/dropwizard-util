@@ -1,5 +1,5 @@
 ext {
-	name = 'Dropwizard NoSQL Database Utilities'
+	name = 'Hibernate OGM for Dropwizard'
 	description = '...'
 }
 
@@ -7,10 +7,7 @@ dependencies {
 	compile project(':core')
 	compile 'io.dropwizard:dropwizard-client'
 	compile 'io.dropwizard:dropwizard-hibernate'
-	compile 'org.hibernate.ogm:hibernate-ogm-mongodb'
 	compile 'com.google.guava:guava'
 	compile 'org.apache.commons:commons-collections4'
-
-
-
+	compileOnly 'org.hibernate.ogm:hibernate-ogm-mongodb'
 }

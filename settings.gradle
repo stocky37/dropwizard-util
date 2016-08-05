@@ -4,7 +4,7 @@ include 'cache'
 include 'core'
 include 'db'
 include 'jersey'
-include 'nosqldb'
+include 'ogm'
 include 'tenacity'
 include 'testing'
 

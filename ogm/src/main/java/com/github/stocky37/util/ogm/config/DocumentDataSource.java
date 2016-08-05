@@ -1,4 +1,4 @@
-package com.github.stocky37.util.nosqldb.config;
+package com.github.stocky37.util.ogm.config;
 
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.ogm.datastore.document.cfg.DocumentStoreProperties;

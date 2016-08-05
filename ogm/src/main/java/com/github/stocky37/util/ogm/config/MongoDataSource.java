@@ -1,4 +1,4 @@
-package com.github.stocky37.util.nosqldb.config;
+package com.github.stocky37.util.ogm.config;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.google.common.base.Converter;
@@ -20,8 +20,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Map;
 import java.util.Optional;
 
-@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 @JsonTypeName("mongo")
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class MongoDataSource extends DocumentDataSource {
 	private static final Joiner PROP_JOINER = Joiner.on(".").skipNulls();
 

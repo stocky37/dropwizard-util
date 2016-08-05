@@ -1,4 +1,4 @@
-package com.github.stocky37.util.nosqldb.config;
+package com.github.stocky37.util.ogm.config;
 
 import io.dropwizard.client.ssl.TlsConfiguration;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
