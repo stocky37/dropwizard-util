@@ -9,5 +9,6 @@ dependencies {
 	compile 'io.dropwizard:dropwizard-hibernate'
 	compile 'com.google.guava:guava'
 	compile 'org.apache.commons:commons-collections4'
+	compile 'org.hibernate.ogm:hibernate-ogm-core'
 	compileOnly 'org.hibernate.ogm:hibernate-ogm-mongodb'
 }
