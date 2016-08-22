@@ -1,4 +1,4 @@
-package com.github.stocky37.util.ogm;
+package com.github.stocky37.util.db.ogm;
 
 import org.hibernate.Cache;
 import org.hibernate.CustomEntityDirtinessStrategy;
@@ -29,6 +29,7 @@ import org.hibernate.engine.query.spi.QueryPlanCache;
 import org.hibernate.engine.spi.FilterDefinition;
 import org.hibernate.engine.spi.NamedQueryDefinition;
 import org.hibernate.engine.spi.NamedSQLQueryDefinition;
+import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.event.spi.EventSource;
 import org.hibernate.exception.spi.SQLExceptionConverter;
 import org.hibernate.id.IdentifierGenerator;
@@ -428,7 +429,7 @@ public class OgmSessionFactoryWrapper implements OgmSessionFactoryImplementor {
 	}
 
 	@Override
-	public DeserializationResolver getDeserializationResolver() {
+	public SessionFactoryImplementor.DeserializationResolver getDeserializationResolver() {
 		return delegate.getDeserializationResolver();
 	}
 

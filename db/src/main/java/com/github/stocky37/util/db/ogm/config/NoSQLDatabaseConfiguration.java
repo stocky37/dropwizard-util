@@ -1,4 +1,4 @@
-package com.github.stocky37.util.ogm.config;
+package com.github.stocky37.util.db.ogm.config;
 
 import io.dropwizard.Configuration;
 import org.hibernate.service.ServiceRegistry;

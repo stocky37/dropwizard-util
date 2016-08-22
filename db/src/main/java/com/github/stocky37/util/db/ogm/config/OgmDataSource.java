@@ -1,4 +1,4 @@
-package com.github.stocky37.util.ogm.config;
+package com.github.stocky37.util.db.ogm.config;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.google.common.base.Joiner;

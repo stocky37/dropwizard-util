@@ -4,8 +4,8 @@ ext {
 }
 
 dependencies {
+	compile project(':core')
 	compile project(':jersey')
 	compile 'io.dropwizard:dropwizard-jersey'
-	compile 'io.dropwizard:dropwizard-core'
 	compile 'redis.clients:jedis'
 }

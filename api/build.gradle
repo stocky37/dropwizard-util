@@ -5,4 +5,5 @@ ext {
 
 dependencies {
 	compile 'io.dropwizard:dropwizard-jersey'
+	compile 'com.github.fge:json-patch:1.9'
 }

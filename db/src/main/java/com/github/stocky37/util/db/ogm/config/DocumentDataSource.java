@@ -1,4 +1,4 @@
-package com.github.stocky37.util.ogm.config;
+package com.github.stocky37.util.db.ogm.config;
 
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.ogm.datastore.document.cfg.DocumentStoreProperties;

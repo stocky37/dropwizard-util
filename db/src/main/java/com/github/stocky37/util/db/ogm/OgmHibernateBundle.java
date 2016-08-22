@@ -1,8 +1,8 @@
-package com.github.stocky37.util.ogm;
+package com.github.stocky37.util.db.ogm;
 
 
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-import com.github.stocky37.util.ogm.config.NoSQLDatabaseConfiguration;
+import com.github.stocky37.util.db.ogm.config.NoSQLDatabaseConfiguration;
 import com.google.common.collect.ImmutableList;
 import io.dropwizard.Configuration;
 import io.dropwizard.ConfiguredBundle;
