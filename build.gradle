@@ -1,6 +1,8 @@
+buildscript { repositories { jcenter() } }
 plugins {
-	id "io.spring.dependency-management" version "0.6.0.RELEASE"
+	id 'nebula.lint' version '5.0.0'
 	id 'nebula.release' version '4.1.0'
+	id "io.spring.dependency-management" version "0.6.0.RELEASE"
 }
 
 apply plugin: 'base'
@@ -9,6 +11,8 @@ def ossrhReleaseUrl = hasProperty('ossrhReleaseUrl') ? ossrhReleaseUrl : System.
 def ossrhSnapshotUrl = hasProperty('ossrhSnapshotUrl') ? ossrhSnapshotUrl : System.getenv('ossrhSnapshotUrl')
 def ossrhUsername = hasProperty('ossrhUsername') ? ossrhUsername : System.getenv('ossrhUsername')
 def ossrhPassword = hasProperty('ossrhPassword') ? ossrhPassword : System.getenv('ossrhPassword')
+
+apply from: 'lint.gradle'
 
 subprojects {
 	apply plugin: 'java'
@@ -111,9 +115,9 @@ subprojects {
 		}
 
 		repositories {
-//			maven {
-//				url "file:/${project.buildDir}/artifacts"
-//			}
+			maven {
+				url "file:/${project.buildDir}/artifacts"
+			}
 
 			maven {
 				if (!project.version.toString().endsWith('-SNAPSHOT')) {

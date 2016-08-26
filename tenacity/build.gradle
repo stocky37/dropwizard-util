@@ -7,4 +7,6 @@ dependencies {
 	compile project(':core')
 	compile project(':db')
 	compile 'com.yammer.tenacity:tenacity-core'
+	compile 'com.netflix.hystrix:hystrix-core'
+	compile 'javax.validation:validation-api'
 }

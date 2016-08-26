@@ -6,4 +6,7 @@ ext {
 dependencies {
 	compile project(':core')
 	compile 'io.dropwizard:dropwizard-hibernate'
+	compile 'com.google.code.findbugs:jsr305'
+	compile 'com.google.guava:guava'
+	compile 'org.hibernate:hibernate-core'
 }

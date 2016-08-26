@@ -9,8 +9,6 @@ import javax.ws.rs.core.Response;
 import java.lang.annotation.Annotation;
 import java.util.Map;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 public class InvalidateCacheableFeature implements DynamicFeature {
 	private final Map<String, Cache<RequestKey, Response>> caches;
 

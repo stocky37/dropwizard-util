@@ -6,5 +6,6 @@ ext {
 dependencies {
 	compile project(':api')
 	compile 'io.dropwizard:dropwizard-core'
+	compile 'javax.validation:validation-api'
 	compile 'com.fasterxml.jackson.module:jackson-module-parameter-names'
 }
