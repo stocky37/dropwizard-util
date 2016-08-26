@@ -21,7 +21,6 @@ subprojects {
 
 	archivesBaseName = "$rootProject.name-$project.name"
 	group = 'com.github.stocky37'
-	version = '0.1.0-SNAPSHOT'
 
 	repositories {
 		mavenCentral()
@@ -117,7 +116,7 @@ subprojects {
 //			}
 
 			maven {
-				if (!project.version.endsWith('-SNAPSHOT')) {
+				if (!project.version.toString().endsWith('-SNAPSHOT')) {
 					url ossrhReleaseUrl
 				} else {
 					url ossrhSnapshotUrl
