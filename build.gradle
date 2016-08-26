@@ -1,6 +1,6 @@
 plugins {
-	id "com.github.ethankhall.semantic-versioning" version "1.1.0"
 	id "io.spring.dependency-management" version "0.6.0.RELEASE"
+	id 'nebula.release' version '4.1.0'
 }
 
 apply plugin: 'base'
@@ -15,14 +15,13 @@ subprojects {
 	apply plugin: 'maven'
 	apply plugin: 'maven-publish'
 	apply plugin: 'io.spring.dependency-management'
-	apply plugin: 'com.github.ethankhall.semantic-versioning'
 
 	sourceCompatibility = '1.8'
 	targetCompatibility = '1.8'
 
 	archivesBaseName = "$rootProject.name-$project.name"
 	group = 'com.github.stocky37'
-	version.with { major = 0; minor = 1; patch = 0 }
+	version = '0.1.0-SNAPSHOT'
 
 	repositories {
 		mavenCentral()
@@ -118,7 +117,7 @@ subprojects {
 //			}
 
 			maven {
-				if (project.version.releaseBuild) {
+				if (!project.version.endsWith('-SNAPSHOT')) {
 					url ossrhReleaseUrl
 				} else {
 					url ossrhSnapshotUrl
