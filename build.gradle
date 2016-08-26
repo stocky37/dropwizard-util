@@ -1,11 +1,11 @@
 buildscript { repositories { jcenter() } }
 plugins {
+	id 'base'
 	id 'nebula.lint' version '5.0.0'
 	id 'nebula.release' version '4.1.0'
+	id 'nebula.resolution-rules' version '2.0.0' apply false
 	id "io.spring.dependency-management" version "0.6.0.RELEASE"
 }
-
-apply plugin: 'base'
 
 def ossrhReleaseUrl = hasProperty('ossrhReleaseUrl') ? ossrhReleaseUrl : System.getenv('ossrhReleaseUrl')
 def ossrhSnapshotUrl = hasProperty('ossrhSnapshotUrl') ? ossrhSnapshotUrl : System.getenv('ossrhSnapshotUrl')
@@ -13,6 +13,18 @@ def ossrhUsername = hasProperty('ossrhUsername') ? ossrhUsername : System.getenv
 def ossrhPassword = hasProperty('ossrhPassword') ? ossrhPassword : System.getenv('ossrhPassword')
 
 apply from: 'lint.gradle'
+
+allprojects {
+	apply plugin: 'nebula.resolution-rules'
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		resolutionRules 'com.netflix.nebula:gradle-resolution-rules:latest.release'
+	}
+}
 
 subprojects {
 	apply plugin: 'java'
@@ -25,10 +37,6 @@ subprojects {
 
 	archivesBaseName = "$rootProject.name-$project.name"
 	group = 'com.github.stocky37'
-
-	repositories {
-		mavenCentral()
-	}
 
 	dependencyManagement {
 		imports {
