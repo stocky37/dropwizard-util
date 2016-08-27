@@ -2,6 +2,10 @@ dependencies {
 	compile project(':core')
 	compile 'com.google.code.findbugs:jsr305'
 	compile 'com.google.guava:guava'
+	compile 'io.dropwizard:dropwizard-client'
 	compile 'io.dropwizard:dropwizard-hibernate'
+	compile 'org.apache.commons:commons-collections4'
 	compile 'org.hibernate:hibernate-core'
+	compile 'org.hibernate.ogm:hibernate-ogm-core'
+	compileOnly 'org.hibernate.ogm:hibernate-ogm-mongodb'
 }

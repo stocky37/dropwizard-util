@@ -1,4 +1,5 @@
 dependencies {
+	compile 'com.github.fge:json-patch:1.9'
 	compile 'io.dropwizard:dropwizard-jersey'
 	compile 'javax.validation:validation-api'
 }

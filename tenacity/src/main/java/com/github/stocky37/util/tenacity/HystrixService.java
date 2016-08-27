@@ -1,16 +1,16 @@
 package com.github.stocky37.util.tenacity;
 
+import com.github.fge.jsonpatch.mergepatch.JsonMergePatch;
 import com.github.stocky37.util.core.Service;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-public class HystrixService<T, U, I> implements Service<T, U, I> {
+public class HystrixService<T, I> implements Service<T, I> {
 
-	private final ServiceCommandFactory<T, U, I> commands;
+	private final ServiceCommandFactory<T, I> commands;
 
-	public HystrixService(ServiceCommandFactory<T, U, I> commands) {
+	public HystrixService(ServiceCommandFactory<T, I> commands) {
 		this.commands = commands;
 	}
 
@@ -30,8 +30,8 @@ public class HystrixService<T, U, I> implements Service<T, U, I> {
 	}
 
 	@Override
-	public Optional<T> update(I id, @Valid U update) {
-		return commands.update(id, update).execute();
+	public Optional<T> update(I id, JsonMergePatch patch) {
+		return commands.update(id, patch).execute();
 	}
 
 	@Override

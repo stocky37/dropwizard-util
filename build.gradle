@@ -48,17 +48,21 @@ subprojects {
 
 	dependencyManagement {
 		imports {
+			mavenBom 'org.hibernate.ogm:hibernate-ogm-bom:5.0.1.Final'
 			mavenBom 'com.yammer.tenacity:tenacity-bom:1.0.1'
 			mavenBom 'io.dropwizard:dropwizard-bom:1.0.0'
 		}
 
 		dependencies {
+			dependency 'org.hibernate:hibernate-core:5.0.1.Final'
+
 			dependency 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.7.6'
 			dependency 'com.smoketurner:dropwizard-swagger:1.0.0-1'
 			dependency 'redis.clients:jedis:2.8.1'
 
 			// utils
 			dependency 'org.springframework:spring-core:4.3.2.RELEASE'
+			dependency 'org.apache.commons:commons-collections4:4.1'
 			dependency 'commons-io:commons-io:2.5'
 
 			// testing

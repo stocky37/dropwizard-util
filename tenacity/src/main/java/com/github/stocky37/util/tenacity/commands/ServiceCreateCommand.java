@@ -1,21 +1,21 @@
 package com.github.stocky37.util.tenacity.commands;
 
+import com.github.stocky37.util.core.Service;
 import com.yammer.tenacity.core.TenacityCommand;
 import com.yammer.tenacity.core.properties.TenacityPropertyKey;
-import com.github.stocky37.util.core.Service;
 
 public class ServiceCreateCommand<T> extends TenacityCommand<T> {
-	private final Service<T, ?, ?> service;
+	private final Service<T, ?> delegate;
 	private final T entity;
 
-	public ServiceCreateCommand(TenacityPropertyKey key, Service<T, ?, ?> service, T entity) {
+	public ServiceCreateCommand(TenacityPropertyKey key, Service<T, ?> delegate, T resource) {
 		super(key);
-		this.service = service;
-		this.entity = entity;
+		this.delegate = delegate;
+		this.entity = resource;
 	}
 
 	@Override
 	protected T run() throws Exception {
-		return service.create(entity);
+		return delegate.create(entity);
 	}
 }

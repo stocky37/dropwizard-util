@@ -1,4 +1,5 @@
 dependencies {
+	compile project(':core')
 	compile project(':jersey')
 	compile 'com.fasterxml.jackson.core:jackson-annotations'
 	compile 'com.google.code.findbugs:jsr305'
