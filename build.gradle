@@ -1,10 +1,16 @@
 buildscript { repositories { jcenter() } }
 plugins {
 	id 'base'
+	id 'io.spring.dependency-management' version '0.6.0.RELEASE' apply false
+	id 'nebula.contacts' version '3.0.1'
+	id 'nebula.info' version '3.2.1' apply false
+	id 'nebula.javadoc-jar' version '4.9.1' apply false
 	id 'nebula.lint' version '5.0.0'
+	id 'nebula.maven-apache-license' version '4.9.1' apply false
+	id 'nebula.maven-publish' version '4.9.1' apply false
 	id 'nebula.release' version '4.1.0'
 	id 'nebula.resolution-rules' version '2.0.0' apply false
-	id "io.spring.dependency-management" version "0.6.0.RELEASE"
+	id 'nebula.source-jar' version '4.9.1' apply false
 }
 
 def ossrhReleaseUrl = hasProperty('ossrhReleaseUrl') ? ossrhReleaseUrl : System.getenv('ossrhReleaseUrl')
@@ -15,7 +21,10 @@ def ossrhPassword = hasProperty('ossrhPassword') ? ossrhPassword : System.getenv
 apply from: 'lint.gradle'
 
 allprojects {
+	apply plugin: 'nebula.info'
 	apply plugin: 'nebula.resolution-rules'
+	group = 'com.github.stocky37'
+	contacts 'tom@stockwells.me'
 
 	repositories {
 		mavenCentral()
@@ -28,15 +37,14 @@ allprojects {
 
 subprojects {
 	apply plugin: 'java'
-	apply plugin: 'maven'
-	apply plugin: 'maven-publish'
 	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'nebula.contacts'
+	apply plugin: 'nebula.javadoc-jar'
+	apply plugin: 'nebula.maven-publish'
+	apply plugin: 'nebula.source-jar'
 
 	sourceCompatibility = '1.8'
 	targetCompatibility = '1.8'
-
-	archivesBaseName = "$rootProject.name-$project.name"
-	group = 'com.github.stocky37'
 
 	dependencyManagement {
 		imports {
@@ -70,64 +78,16 @@ subprojects {
 		options.compilerArgs << '-parameters'
 	}
 
-	task javadocJar(type: Jar) {
-		classifier = 'javadoc'
-		from javadoc
-	}
-
-	task sourceJar(type: Jar) {
-		classifier = 'sources'
-		from sourceSets.main.allSource
-	}
-
 	publishing {
 		publications {
-			mavenJava(MavenPublication) {
-				artifactId = "$archivesBaseName"
-
-				from components.java
-
-				artifact javadocJar
-				artifact sourceJar
-
-				pom.withXml {
-					asNode().children().last() + {
-						resolveStrategy = Closure.DELEGATE_FIRST
-						name "$project.ext.name"
-						description "$project.ext.description"
-						url 'https://github.com/stocky37/dropwizard-util'
-
-						scm {
-							url 'git@github.com:stocky37/dropwizard-util.git'
-							connection 'git@github.com:stocky37/dropwizard-util.git'
-							developerConnection 'git@github.com:stocky37/dropwizard-util.git'
-						}
-
-						licenses {
-							license {
-								name 'MIT License'
-								url 'http://www.opensource.org/licenses/mit-license.php'
-							}
-						}
-
-						developers {
-							developer {
-								id 'stocky37'
-								name 'Tom Stockwell'
-								email 'tom@stockwells.me'
-							}
-						}
-					}
-				}
+			nebula(MavenPublication) {
+				artifactId = "$rootProject.name-$project.name"
 			}
 		}
 
 		repositories {
 			maven {
-				url "file:/${project.buildDir}/artifacts"
-			}
-
-			maven {
+				name = 'ossrh'
 				if (!project.version.toString().endsWith('-SNAPSHOT')) {
 					url ossrhReleaseUrl
 				} else {

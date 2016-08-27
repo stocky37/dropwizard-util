@@ -1,22 +1,17 @@
-ext {
-	name = 'Dropwizard Caching Utilities'
-	description = 'Utility classes for caching within Dropwizard applications'
-}
-
 dependencies {
 	compile project(':jersey')
-	compile 'io.dropwizard:dropwizard-jersey'
-	compile 'io.dropwizard:dropwizard-jackson'
-	compile 'io.dropwizard:dropwizard-core'
-	compile 'io.dropwizard:dropwizard-util'
-	compile 'io.dropwizard:dropwizard-servlets'
-	compile 'javax.ws.rs:javax.ws.rs-api'
-	compile 'org.glassfish.jersey.core:jersey-common'
-	compile 'org.glassfish.hk2.external:javax.inject'
 	compile 'com.fasterxml.jackson.core:jackson-annotations'
-	compile 'redis.clients:jedis'
-	compile 'com.google.guava:guava'
-	compile 'org.apache.commons:commons-lang3'
 	compile 'com.google.code.findbugs:jsr305'
+	compile 'com.google.guava:guava'
+	compile 'io.dropwizard:dropwizard-core'
+	compile 'io.dropwizard:dropwizard-jackson'
+	compile 'io.dropwizard:dropwizard-jersey'
+	compile 'io.dropwizard:dropwizard-servlets'
+	compile 'io.dropwizard:dropwizard-util'
 	compile 'javax.annotation:javax.annotation-api'
+	compile 'javax.ws.rs:javax.ws.rs-api'
+	compile 'org.apache.commons:commons-lang3'
+	compile 'org.glassfish.hk2.external:javax.inject'
+	compile 'org.glassfish.jersey.core:jersey-common'
+	compile 'redis.clients:jedis'
 }

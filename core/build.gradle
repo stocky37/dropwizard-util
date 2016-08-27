@@ -1,11 +1,6 @@
-ext {
-	name = 'Dropwizard Core Utilities'
-	description = 'Core utility classes for Dropwizard applications'
-}
-
 dependencies {
 	compile project(':api')
+	compile 'com.fasterxml.jackson.module:jackson-module-parameter-names'
 	compile 'io.dropwizard:dropwizard-core'
 	compile 'javax.validation:validation-api'
-	compile 'com.fasterxml.jackson.module:jackson-module-parameter-names'
 }

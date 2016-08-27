@@ -1,20 +1,15 @@
-ext {
-	name = 'Dropwizard Testing Utilities'
-	description = 'Utilities for testing Dropwizard application'
-}
-
 dependencies {
-	compile 'io.dropwizard:dropwizard-jackson'
-	compile 'io.dropwizard:dropwizard-testing'
 	compile 'com.fasterxml.jackson.core:jackson-core'
 	compile 'com.fasterxml.jackson.core:jackson-databind'
 	compile 'com.fasterxml.jackson.module:jackson-module-parameter-names'
-	compile 'javax.validation:validation-api'
 	compile 'com.google.guava:guava'
 	compile 'commons-io:commons-io'
-	compile 'org.apache.commons:commons-lang3'
-	compile 'nl.jqno.equalsverifier:equalsverifier'
-	compile 'uk.co.datumedge:hamcrest-json'
-	compile 'org.hamcrest:hamcrest-core'
+	compile 'io.dropwizard:dropwizard-jackson'
+	compile 'io.dropwizard:dropwizard-testing'
+	compile 'javax.validation:validation-api'
 	compile 'junit:junit'
+	compile 'nl.jqno.equalsverifier:equalsverifier'
+	compile 'org.apache.commons:commons-lang3'
+	compile 'org.hamcrest:hamcrest-all'
+	compile 'uk.co.datumedge:hamcrest-json'
 }

@@ -1,19 +1,14 @@
-ext {
-	name = 'Jersey Utilities'
-	description = 'Utility classes for Jersey applications'
-}
-
 dependencies {
 	compile project(':api')
+	compile 'com.fasterxml.jackson.core:jackson-databind'
+	compile 'com.google.code.findbugs:jsr305'
+	compile 'com.google.guava:guava'
 	compile 'io.dropwizard:dropwizard-core'
 	compile 'io.dropwizard:dropwizard-jackson'
 	compile 'io.dropwizard:dropwizard-jersey'
 	compile 'io.dropwizard:dropwizard-views-freemarker'
-	compile 'org.springframework:spring-core'
-	compile 'com.google.code.findbugs:jsr305'
 	compile 'javax.annotation:javax.annotation-api'
-	compile 'com.fasterxml.jackson.core:jackson-databind'
 	compile 'javax.ws.rs:javax.ws.rs-api'
-	compile 'com.google.guava:guava'
 	compile 'org.apache.commons:commons-lang3'
+	compile 'org.springframework:spring-core'
 }

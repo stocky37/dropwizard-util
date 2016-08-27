@@ -2,12 +2,9 @@ package com.github.stocky37.util.cache;
 
 import com.google.common.base.Throwables;
 import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Function;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 @ParametersAreNonnullByDefault
 public class CacheLoaders {

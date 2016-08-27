@@ -1,12 +1,7 @@
-ext {
-	name = 'Dropwizard Database Utilities'
-	description = 'Standard Dropwizard API Interfaces'
-}
-
 dependencies {
 	compile project(':core')
-	compile 'io.dropwizard:dropwizard-hibernate'
 	compile 'com.google.code.findbugs:jsr305'
 	compile 'com.google.guava:guava'
+	compile 'io.dropwizard:dropwizard-hibernate'
 	compile 'org.hibernate:hibernate-core'
 }
